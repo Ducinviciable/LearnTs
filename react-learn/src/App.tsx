@@ -1,7 +1,14 @@
+import { useState } from "react";
 import "./App.css";
 import products from "./Data/Data";
 
 function App() {
+  const [color, setColor] = useState("all");
+  const filterProducts = products.filter((product) => {
+    if (color === "all") return true;
+    return product.color === color;
+  });
+
   const getProductsByColor = products.filter(
     (product) => product.color === "green",
   );
@@ -41,6 +48,29 @@ function App() {
           <li key={p.id}>{p.name}</li>
         ))}
       </ul>
+      <div>
+        <h1>Danh sách lọc sản phẩm:</h1>
+        <div>
+          <button onClick={() => setColor("all")}>Tất cả</button>
+          <button onClick={() => setColor("yellow")}>Vàng</button>
+          <button onClick={() => setColor("red")}>Đỏ</button>
+          <button onClick={() => setColor("green")}>Xanh lục</button>
+          <button onClick={() => setColor("blue")}>Xanh dương</button>
+          <button onClick={() => setColor("black")}>Đen</button>
+        </div>
+        <ul>
+          {filterProducts.map((product) => (
+            <li key={product.id}>
+              {product.name} - {product.color}
+            </li>
+          ))}
+        </ul>
+        <h3>
+          {filterProducts.length === 0 && (
+            <div style={{ color: "red" }}>Không có sản phẩm</div>
+          )}
+        </h3>
+      </div>
     </div>
   );
 }
