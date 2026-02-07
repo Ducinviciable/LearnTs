@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import products from "./Data/Data";
+import ProductList from "./Components/ProductList";
 
 function App() {
   const [color, setColor] = useState("all");
@@ -25,48 +26,22 @@ function App() {
 
   return (
     <div style={{ textAlign: "left" }}>
-      <h1>Danh sách sản phẩm</h1>
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.id}-{product.name}
-          </li>
-        ))}
-      </ul>
+      <h1>Danh sách sản phẩm: </h1>
+      <ProductList products={products} />
       <h1>Tổng giá trị sản phẩm là: {sum}</h1>
       <h1>Danh sách sản phẩm có giá trị lớn hơn 1500</h1>
-      <ul>
-        {expProducts.map((product) => (
-          <li key={product.id}>Giá: {product.cost}</li>
-        ))}
-      </ul>
+      <ProductList products={expProducts} />
       <h1>Danh sách sản phẩm có màu xanh:</h1>
-      <ul>
-        {getProductsByColor.map((p) => (
-          <li key={p.id}>{p.name}</li>
-        ))}
-      </ul>
+      <ProductList products={getProductsByColor} />
       <h1>Danh sách sản phẩm có màu xanh giá 1500:</h1>
-      <ul>
-        {getProductsByColorCost.map((p) => (
-          <li key={p.id}>{p.name}</li>
-        ))}
-      </ul>
+      <ProductList products={getProductsByColorCost} />
       {/* Ẩn  hiện toàn bộ danh sách sản phẩm trong tab */}
       <div>
         <h1>Danh sách sản phẩm</h1>
         <button onClick={handleShowTab}>
-          {showTab ? "Hiên danh sách sản phẩm" : "Ẩn danh sách sản phẩm"}
+          {!showTab ? "Hiện danh sách sản phẩm" : "Ẩn danh sách sản phẩm"}
         </button>
-        <div>
-          {showTab && (
-            <ul>
-              {products.map((products) => (
-                <li key={products.id}>{products.name}</li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <div>{showTab && <ProductList products={products} />}</div>
       </div>
       {showTab && (
         <div>
@@ -79,13 +54,7 @@ function App() {
             <button onClick={() => setColor("blue")}>Xanh dương</button>
             <button onClick={() => setColor("black")}>Đen</button>
           </div>
-          <ul>
-            {filterProducts.map((product) => (
-              <li key={product.id}>
-                {product.name} - {product.color}
-              </li>
-            ))}
-          </ul>
+          <ProductList products={filterProducts} />
           <h3>
             {filterProducts.length === 0 && (
               <div style={{ color: "red" }}>Không có sản phẩm</div>
