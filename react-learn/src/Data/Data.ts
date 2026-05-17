@@ -1,4 +1,4 @@
-import type { Product } from "../Type/Product";
+import type { Product, user } from "../Type/Product";
 
 const products: Product[] = [
   { id: 1, name: "IPHONE", cost: 1000, color: "red" },
@@ -8,4 +8,19 @@ const products: Product[] = [
   { id: 5, name: "EDGE", cost: 1000, color: "green" },
 ];
 
-export default products;
+const data: user[] = [
+  {
+    name: "John",
+    age: 30,
+    city: "New York",
+    hobby: "Reading",
+  },
+  {
+    name: "Jane",
+    age: 25,
+    city: "London",
+    hobby: "Traveling",
+  },
+];
+
+export { products, data };

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./App.css";
-import products from "./Data/Data";
+import { products } from "./Data/Data";
 import ProductList from "./Components/ProductList";
 
 function App() {
   const [color, setColor] = useState("all");
   const [showTab, setShowTab] = useState(false);
+  const [buttonColor, setButtonColor] = useState("green");
+
   const filterProducts = products.filter((product) => {
     if (color === "all") return true;
     return product.color === color;
@@ -13,6 +15,7 @@ function App() {
 
   const handleShowTab = () => {
     setShowTab(!showTab);
+    setButtonColor(showTab ? "green" : "red");
   };
 
   const getProductsByColor = products.filter(
@@ -35,10 +38,11 @@ function App() {
       <ProductList products={getProductsByColor} />
       <h1>Danh sách sản phẩm có màu xanh giá 1500:</h1>
       <ProductList products={getProductsByColorCost} />
+
       {/* Ẩn  hiện toàn bộ danh sách sản phẩm trong tab */}
       <div>
         <h1>Danh sách sản phẩm</h1>
-        <button onClick={handleShowTab}>
+        <button style={{ background: buttonColor }} onClick={handleShowTab}>
           {!showTab ? "Hiện danh sách sản phẩm" : "Ẩn danh sách sản phẩm"}
         </button>
         <div>{showTab && <ProductList products={products} />}</div>
@@ -55,11 +59,6 @@ function App() {
             <button onClick={() => setColor("black")}>Đen</button>
           </div>
           <ProductList products={filterProducts} />
-          <h3>
-            {filterProducts.length === 0 && (
-              <div style={{ color: "red" }}>Không có sản phẩm</div>
-            )}
-          </h3>
         </div>
       )}
     </div>

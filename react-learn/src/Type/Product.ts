@@ -4,4 +4,12 @@ interface Product {
   cost: number;
   color: string;
 }
-export type { Product };
+
+interface user {
+  name: string;
+  age: number;
+  city: string;
+  hobby: string;
+}
+
+export type { Product, user };
